@@ -35,7 +35,7 @@ namespace PathFindAlgorithmDemo
             return walls;
         }
 
-        public static void CreateSolveMazeImage(int[,] map, int[,] weightMap, Point start, Point finish, string? savePath=null, params Point[] walls)
+        public static void CreateSolveMazeImage(int[,] map, int[,] weightMap, Point start, Point finish, string? savePath=null)
         {
             var image = new Bitmap(map.GetLength(1), map.GetLength(0));
 
