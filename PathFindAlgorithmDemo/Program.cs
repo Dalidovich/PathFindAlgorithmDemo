@@ -1,7 +1,4 @@
 ﻿using System.Diagnostics;
-using System.Drawing;
-using System.Text;
-using System.Text.Json;
 
 namespace PathFindAlgorithmDemo
 {
@@ -9,16 +6,32 @@ namespace PathFindAlgorithmDemo
     {
         static void Main(string[] args)
         {
+            Stopwatch sw = new Stopwatch();
+            var maze = Maze.LoadMazeJSON(@"testMaze.json");
 
-            Stopwatch stopwatch = Stopwatch.StartNew();
-            var matrix = new Matrix(TestMaze.height, TestMaze.width);
-            var walls = TestMaze.GetTestMazeWalls();
-            matrix.SetWalls(walls);
+            var matrix = new Matrix(maze.Height, maze.Width);
+            matrix.SetWalls(maze.Walls);
+            sw.Start();
+            var solveMapBreadthFirstSearch = matrix.BreadthFirstSearch(maze.StartPoint, maze.FinishPoint);
+            sw.Stop();
+            Console.WriteLine($"BreadthFirstSearch time - {sw.ElapsedMilliseconds}");
+            Display.CreateSolveMazeImage(solveMapBreadthFirstSearch, matrix.WeightMap, maze.StartPoint, maze.FinishPoint, "solveMapBreadthFirstSearch.png");
 
-            var solveMap = matrix.BreadthFirstSearch(TestMaze.StartPoint, TestMaze.FinishPoint);
-            stopwatch.Stop();
-            Display.CreateSolveMazeImage(solveMap,matrix.WeightMap, TestMaze.StartPoint, TestMaze.FinishPoint, null);
-            Console.WriteLine(stopwatch.ElapsedMilliseconds);
+            matrix = new Matrix(maze.Height, maze.Width);
+            matrix.SetWalls(maze.Walls);
+            sw.Start();
+            var solveMapDepthFirstSearch = matrix.DepthFirstSearch(maze.StartPoint, maze.FinishPoint);
+            Console.WriteLine($"DepthFirstSearch time - {sw.ElapsedMilliseconds}");
+            sw.Stop();
+            Display.CreateSolveMazeImage(solveMapDepthFirstSearch, matrix.WeightMap, maze.StartPoint, maze.FinishPoint, "solveMapDepthFirstSearch.png");
+
+            matrix = new Matrix(maze.Height, maze.Width);
+            matrix.SetWalls(maze.Walls);
+            sw.Start();
+            var solveMapGreedySearch = matrix.GreedySearch(maze.StartPoint, maze.FinishPoint);
+            sw.Stop();
+            Console.WriteLine($"GreedySearch time - {sw.ElapsedMilliseconds}");
+            Display.CreateSolveMazeImage(solveMapGreedySearch, matrix.WeightMap, maze.StartPoint, maze.FinishPoint, "solveMapGreedySearch.png");
         }
     }
 }
