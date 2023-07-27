@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace PathFindAlgorithmDemo
+﻿namespace PathFindAlgorithmDemo
 {
     public class Matrix
     {
