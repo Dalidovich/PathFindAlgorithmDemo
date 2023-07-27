@@ -9,15 +9,15 @@ namespace PathFindAlgorithmDemo
         private readonly int _width;
         private readonly int _height;
 
-        public Matrix(Size mapSize)
+        public Matrix(int height,int width)
         {
-            WeightMap = new int[mapSize.Height, mapSize.Width];
+            WeightMap = new int[height, width];
 
-            _width = mapSize.Width;
-            _height = mapSize.Height;
+            _width = width;
+            _height = height;
         }
 
-        public void SetWalls(params Point[] walls) => walls.ToList().ForEach(wall => WeightMap[wall.Y, wall.X] = -1);
+        public void SetWalls(params Point[] walls) => walls.ToList().ForEach(wall => WeightMap[wall.X, wall.Y] = -1);
 
         public int[,] BreadthFirstSearch(Point startCoordinate, Point finishCoordinate)
         {
