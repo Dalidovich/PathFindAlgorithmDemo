@@ -9,7 +9,7 @@ namespace PathFindAlgorithmDemo
         private readonly int _width;
         private readonly int _height;
 
-        public Matrix(int height,int width)
+        public Matrix(int height, int width)
         {
             WeightMap = new int[height, width];
 
@@ -17,7 +17,21 @@ namespace PathFindAlgorithmDemo
             _height = height;
         }
 
-        public void SetWalls(params Point[] walls) => walls.ToList().ForEach(wall => WeightMap[wall.X, wall.Y] = -1);
+        public void ClearMapEpoch()
+        {
+            for (int i = 0; i < WeightMap.GetLength(0); i++)
+            {
+                for (int k = 0; k < WeightMap.GetLength(1); k++)
+                {
+                    if (WeightMap[i, k] != -1)
+                    {
+                        WeightMap[i, k] = 0;
+                    }
+                }
+            }
+        }
+
+        public void SetWalls(params Point[] walls) => walls.ToList().ForEach(wall => WeightMap[wall.Y, wall.X] = -1);
 
         public int[,] BreadthFirstSearch(Point startCoordinate, Point finishCoordinate)
         {
@@ -73,7 +87,7 @@ namespace PathFindAlgorithmDemo
             var pointToVisit = GetNeighborsPoints(startCoordinate, 0, WeightMap).ToList();
             var epoch = 1;
             pointToVisit.ToList().ForEach(x => WeightMap[x.Y, x.X] = epoch);
-            pointToVisit.Sort(startCoordinate,finishCoordinate);
+            pointToVisit.Sort(startCoordinate, finishCoordinate);
 
             while (true)
             {
@@ -116,17 +130,17 @@ namespace PathFindAlgorithmDemo
         private IEnumerable<Point> GetNeighborsPoints(Point selected, int fitValue, int[,] matrix)
         {
             var neighbors = new List<Point>();
-            if (selected.X != _width - 1 && matrix[selected.Y, selected.X + 1] == fitValue)
-                neighbors.Add(selected with { X = selected.X + 1 });
-
             if (selected.Y != _height - 1 && matrix[selected.Y + 1, selected.X] == fitValue)
                 neighbors.Add(selected with { Y = selected.Y + 1 });
 
-            if (selected.X != 0 && matrix[selected.Y, selected.X - 1] == fitValue)
-                neighbors.Add(selected with { X = selected.X - 1 });
-
             if (selected.Y != 0 && matrix[selected.Y - 1, selected.X] == fitValue)
                 neighbors.Add(selected with { Y = selected.Y - 1 });
+
+            if (selected.X != _width - 1 && matrix[selected.Y, selected.X + 1] == fitValue)
+                neighbors.Add(selected with { X = selected.X + 1 });
+
+            if (selected.X != 0 && matrix[selected.Y, selected.X - 1] == fitValue)
+                neighbors.Add(selected with { X = selected.X - 1 });
 
             return neighbors;
         }

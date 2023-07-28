@@ -44,7 +44,7 @@ namespace PathFindAlgorithmDemo
         public string SaveMazeJSON(string path)
         {
             var jsonString = JsonSerializer.Serialize<Maze>(this);
-            using (FileStream fstream = new FileStream(path,FileMode.OpenOrCreate))
+            using (FileStream fstream = new FileStream(path, FileMode.OpenOrCreate))
             {
                 byte[] buffer = Encoding.Default.GetBytes(jsonString);
                 fstream.Write(buffer, 0, buffer.Length);
