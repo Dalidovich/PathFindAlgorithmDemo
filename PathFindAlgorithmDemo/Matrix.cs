@@ -1,4 +1,6 @@
-﻿namespace PathFindAlgorithmDemo
+﻿using PathFindAlgorithmDemo.HelpFullStructures;
+
+namespace PathFindAlgorithmDemo
 {
     public class Matrix
     {

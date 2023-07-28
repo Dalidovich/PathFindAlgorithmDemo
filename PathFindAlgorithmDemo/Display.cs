@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using Point = System.Drawing.Point;
 
 namespace PathFindAlgorithmDemo
 {

@@ -1,6 +1,6 @@
-﻿using System.Drawing;
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
+using PathFindAlgorithmDemo.HelpFullStructures;
 
 namespace PathFindAlgorithmDemo
 {

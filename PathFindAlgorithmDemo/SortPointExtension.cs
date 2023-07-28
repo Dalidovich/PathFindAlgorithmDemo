@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+﻿using PathFindAlgorithmDemo.HelpFullStructures;
 
 namespace PathFindAlgorithmDemo
 {
@@ -8,11 +8,11 @@ namespace PathFindAlgorithmDemo
         {
             points.Sort((x, y) =>
             {
-                var vx = new Vector2(x.X - start.X, x.Y - start.Y);
-                var vy = new Vector2(y.X - start.X, y.Y - start.Y);
-                var vf = new Vector2(finish.X - start.X, finish.Y - start.Y);
+                var vx = new Vector(x.X - start.X, x.Y - start.Y);
+                var vy = new Vector(y.X - start.X, y.Y - start.Y);
+                var vf = new Vector(finish.X - start.X, finish.Y - start.Y);
 
-                return Vector2.Dot(vx, vf) / (vx.Length() * vf.Length()) < Vector2.Dot(vy, vf) / (vy.Length() * vf.Length()) ? 1 : 0;
+                return vx.Dot(vf) / (vx.Length() * vf.Length()) < vy.Dot(vf) / (vy.Length() * vf.Length()) ? 1 : 0;
             });
         }
     }
