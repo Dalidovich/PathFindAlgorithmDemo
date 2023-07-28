@@ -1,5 +1,5 @@
 ﻿using System.Drawing;
-using Point = System.Drawing.Point;
+using Point = PathFindAlgorithmDemo.HelpFullStructures.Point;
 
 namespace PathFindAlgorithmDemo
 {
