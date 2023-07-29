@@ -164,21 +164,21 @@ namespace PathFindAlgorithmDemo.TestPathFinders
             var graph = new Graph(maze.Width, maze.Height);
             graph.SetWalls(maze.Walls).Wait();
             sw.Start();
-            var solve = graph.BreadthFirstSearch(maze.StartPoint, maze.FinishPoint);
+            var solveBreadthFirstSearch = graph.BreadthFirstSearch(maze.StartPoint, maze.FinishPoint);
             sw.Stop();
             Console.WriteLine($"BreadthFirstSearch time - {sw.ElapsedMilliseconds}");
             Display.CreateSolveGraphImage(graph.Nodes, maze.Width, maze.Height, maze.StartPoint, maze.FinishPoint, $"{savePath ?? ""}solveGraphBreadthFirstSearch.png");
 
             graph.ClearNodeEpoch();
             sw.Restart();
-            var solve = graph.DepthFirstSearch(maze.StartPoint, maze.FinishPoint);
+            var solveDepthFirstSearch = graph.DepthFirstSearch(maze.StartPoint, maze.FinishPoint);
             Console.WriteLine($"DepthFirstSearch time - {sw.ElapsedMilliseconds}");
             sw.Stop();
             Display.CreateSolveGraphImage(graph.Nodes, maze.Width, maze.Height, maze.StartPoint, maze.FinishPoint, $"{savePath ?? ""}solveGraphDepthFirstSearch.png");
 
             graph.ClearNodeEpoch();
             sw.Restart();
-            var solve = graph.GreedySearch(maze.StartPoint, maze.FinishPoint);
+            var solveGreedySearch = graph.GreedySearch(maze.StartPoint, maze.FinishPoint);
             sw.Stop();
             Console.WriteLine($"GreedySearch time - {sw.ElapsedMilliseconds}");
             Display.CreateSolveGraphImage(graph.Nodes, maze.Width, maze.Height, maze.StartPoint, maze.FinishPoint, $"{savePath ?? ""}solveGraphGreedySearch.png");

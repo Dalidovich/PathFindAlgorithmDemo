@@ -1,6 +1,7 @@
 ﻿using PathFindAlgorithmDemo.Consts;
 using PathFindAlgorithmDemo.HelpFullStructures;
 using PathFindAlgorithmDemo.HelpFullTools;
+using System.Drawing.Drawing2D;
 
 namespace PathFindAlgorithmDemo
 {
@@ -35,9 +36,9 @@ namespace PathFindAlgorithmDemo
 
         public void SetWalls(params Point[] walls) => walls.ToList().ForEach(wall => WeightMap[wall.Y, wall.X] = MazeDesignationsConsts.wall);
 
-        public int[,] BreadthFirstSearch(Point startCoordinate, Point finishCoordinate)
+        public Point[] BreadthFirstSearch(Point startCoordinate, Point finishCoordinate)
         {
-            WeightMap[startCoordinate.Y, startCoordinate.X] = WeightMap.Length;
+            WeightMap[startCoordinate.Y, startCoordinate.X] = MazeDesignationsConsts.start;
             var pointToVisit = GetNeighborsPoints(startCoordinate, MazeDesignationsConsts.notVisited, WeightMap).ToList();
             var epoch = 1;
             pointToVisit.ToList().ForEach(x => WeightMap[x.Y, x.X] = epoch);
@@ -61,9 +62,9 @@ namespace PathFindAlgorithmDemo
             }
         }
 
-        public int[,] DepthFirstSearch(Point startCoordinate, Point finishCoordinate, SideChecker.SideCheckerDelegate? sideCheckerQueue = null)
+        public Point[] DepthFirstSearch(Point startCoordinate, Point finishCoordinate, SideChecker.SideCheckerDelegate? sideCheckerQueue = null)
         {
-            WeightMap[startCoordinate.Y, startCoordinate.X] = WeightMap.Length;
+            WeightMap[startCoordinate.Y, startCoordinate.X] = MazeDesignationsConsts.start;
             var pointToVisit = GetNeighborsPoints(startCoordinate, MazeDesignationsConsts.notVisited, WeightMap, sideCheckerQueue).ToList();
             var epoch = 1;
             pointToVisit.ToList().ForEach(x => WeightMap[x.Y, x.X] = epoch);
@@ -76,21 +77,24 @@ namespace PathFindAlgorithmDemo
 
                     return FillFinishMap(epoch + 1, WeightMap, finishCoordinate);
                 }
-                n.ToList().ForEach(x => WeightMap[x.Y, x.X] = epoch + 1);
+                if (n.Count != 0)
+                {
+
+                    n.ToList().ForEach(x => WeightMap[x.Y, x.X] = epoch + 1);
+                    epoch++;
+                }
                 pointToVisit.RemoveAt(0);
                 pointToVisit.InsertRange(0, n);
-                epoch++;
             }
         }
 
-        public int[,] GreedySearch(Point startCoordinate, Point finishCoordinate)
+        public Point[] GreedySearch(Point startCoordinate, Point finishCoordinate)
         {
-            WeightMap[startCoordinate.Y, startCoordinate.X] = WeightMap.Length;
+            WeightMap[startCoordinate.Y, startCoordinate.X] = MazeDesignationsConsts.start;
             var pointToVisit = GetNeighborsPoints(startCoordinate, MazeDesignationsConsts.notVisited, WeightMap).ToList();
             var epoch = 1;
             pointToVisit.ToList().ForEach(x => WeightMap[x.Y, x.X] = epoch);
             pointToVisit.Sort(startCoordinate, finishCoordinate);
-
             while (true)
             {
                 var n = GetNeighborsPoints(pointToVisit.First(), MazeDesignationsConsts.notVisited, WeightMap).ToList();
@@ -99,19 +103,25 @@ namespace PathFindAlgorithmDemo
 
                     return FillFinishMap(epoch + 1, WeightMap, finishCoordinate);
                 }
-                n.ForEach(x => WeightMap[x.Y, x.X] = epoch + 1);
-                n.Sort(pointToVisit.First(), finishCoordinate);
+                if (n.Count != 0)
+                {
+
+                    n.ForEach(x => WeightMap[x.Y, x.X] = epoch + 1);
+                    n.Sort(pointToVisit.First(), finishCoordinate);
+                    epoch++;
+                }
 
                 pointToVisit.RemoveAt(0);
                 pointToVisit.InsertRange(0, n);
-                epoch++;
             }
         }
 
-        private int[,] FillFinishMap(int start, int[,] weightMap, Point finishPoint)
+        private Point[]  FillFinishMap(int start, int[,] weightMap, Point finishPoint)
         {
-            var wayMap = new int[_height, _width];
-            wayMap[finishPoint.Y, finishPoint.X] = start--;
+            var wayMap = new List<Point> 
+            {
+                finishPoint 
+            };
             while (start != MazeDesignationsConsts.notVisited)
             {
                 var fitPoint = GetNeighborsPoints(finishPoint, start, weightMap);
@@ -121,12 +131,12 @@ namespace PathFindAlgorithmDemo
                 }
                 else
                 {
-                    wayMap[fitPoint.First().Y, fitPoint.First().X] = start--;
+                    wayMap.Add(fitPoint.First());
                     finishPoint = fitPoint.First();
                 }
             }
 
-            return wayMap;
+            return wayMap.ToArray();
         }
 
         private IEnumerable<Point> GetNeighborsPoints(Point selected, int fitValue, int[,] matrix, SideChecker.SideCheckerDelegate? sideCheckerQueue = null)

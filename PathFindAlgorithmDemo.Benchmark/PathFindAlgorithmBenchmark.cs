@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using PathFindAlgorithmDemo.HelpFullTools;
-using System.Security.Cryptography;
+using Point = PathFindAlgorithmDemo.HelpFullStructures.Point;
 
 namespace PathFindAlgorithmDemo.Benchmark
 {
@@ -19,7 +19,7 @@ namespace PathFindAlgorithmDemo.Benchmark
         }
 
         [Benchmark]
-        public int[,] BreadthFirstSearchBenchmark()
+        public Point[] BreadthFirstSearchBenchmark()
         {
             var matrix = new Matrix(maze.Height, maze.Width);
             matrix.SetWalls(maze.Walls);
@@ -28,7 +28,7 @@ namespace PathFindAlgorithmDemo.Benchmark
         }
 
         [Benchmark]
-        public int[,] DepthFirstSearchBenchmark()
+        public Point[] DepthFirstSearchBenchmark()
         {
             var matrix = new Matrix(maze.Height, maze.Width);
             matrix.SetWalls(maze.Walls);
@@ -37,7 +37,7 @@ namespace PathFindAlgorithmDemo.Benchmark
         }
 
         [Benchmark]
-        public int[,] GreedySearchBenchmark()
+        public Point[] GreedySearchBenchmark()
         {
             var matrix = new Matrix(maze.Height, maze.Width);
             matrix.SetWalls(maze.Walls);

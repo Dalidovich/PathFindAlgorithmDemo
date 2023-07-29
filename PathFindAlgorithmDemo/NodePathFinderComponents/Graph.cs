@@ -82,7 +82,7 @@ namespace PathFindAlgorithmDemo.NodePathFinderComponents
 
         public Node[] BreadthFirstSearch(Point startCoordinate, Point finishCoordinate)
         {
-            Nodes[startCoordinate.Y * _width + startCoordinate.X].EpochValue = Nodes.Length;
+            Nodes[startCoordinate.Y * _width + startCoordinate.X].EpochValue = MazeDesignationsConsts.start;
             var pointToVisit = Nodes[startCoordinate.Y * _width + startCoordinate.X].Neighbors;
             var epoch = 1;
             pointToVisit.ToList().ForEach(x =>
@@ -117,7 +117,7 @@ namespace PathFindAlgorithmDemo.NodePathFinderComponents
 
         public Node[] DepthFirstSearch(Point startCoordinate, Point finishCoordinate)
         {
-            Nodes[startCoordinate.Y * _width + startCoordinate.X].EpochValue = Nodes.Length;
+            Nodes[startCoordinate.Y * _width + startCoordinate.X].EpochValue = MazeDesignationsConsts.start;
             var pointToVisit = Nodes[startCoordinate.Y * _width + startCoordinate.X].Neighbors.ToList();
             var epoch = 1;
             pointToVisit.ToList().ForEach(x =>
@@ -147,7 +147,7 @@ namespace PathFindAlgorithmDemo.NodePathFinderComponents
 
         public Node[] GreedySearch(Point startCoordinate, Point finishCoordinate)
         {
-            Nodes[startCoordinate.Y * _width + startCoordinate.X].EpochValue = Nodes.Length;
+            Nodes[startCoordinate.Y * _width + startCoordinate.X].EpochValue = MazeDesignationsConsts.start;
             var pointToVisit = Nodes[startCoordinate.Y * _width + startCoordinate.X].Neighbors.ToList();
             var epoch = 1;
             pointToVisit.ToList().ForEach(x =>
