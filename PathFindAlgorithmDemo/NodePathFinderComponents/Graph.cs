@@ -1,4 +1,6 @@
-﻿using PathFindAlgorithmDemo.HelpFullStructures;
+﻿using PathFindAlgorithmDemo.Consts;
+using PathFindAlgorithmDemo.HelpFullStructures;
+using PathFindAlgorithmDemo.HelpFullTools;
 
 namespace PathFindAlgorithmDemo.NodePathFinderComponents
 {
@@ -28,7 +30,7 @@ namespace PathFindAlgorithmDemo.NodePathFinderComponents
         {
             foreach (Node node in Nodes)
             {
-                node.EpochValue = node.EpochValue == -1 ? -1 : 0;
+                node.EpochValue = node.EpochValue == MazeDesignationsConsts.wall ? MazeDesignationsConsts.wall : MazeDesignationsConsts.notVisited;
                 node.ForSolve = false;
                 node.NodeFromStart = null;
             }
@@ -95,7 +97,7 @@ namespace PathFindAlgorithmDemo.NodePathFinderComponents
                 var nextPointToVisit = new List<Node>();
                 foreach (var item in pointToVisit)
                 {
-                    var n = item.Neighbors.Where(x => x.EpochValue == 0).ToList();
+                    var n = item.Neighbors.Where(x => x.EpochValue == MazeDesignationsConsts.notVisited).ToList();
                     if (n.Where(x => x.X == finishCoordinate.X && x.Y == finishCoordinate.Y).Count() != 0)
                     {
                         Nodes[finishCoordinate.Y * _width + finishCoordinate.X].NodeFromStart = item;
@@ -126,7 +128,7 @@ namespace PathFindAlgorithmDemo.NodePathFinderComponents
 
             while (true)
             {
-                var n = pointToVisit.First().Neighbors.Where(x => x.EpochValue == 0).ToList();
+                var n = pointToVisit.First().Neighbors.Where(x => x.EpochValue == MazeDesignationsConsts.notVisited).ToList();
                 if (n.Where(x => x.X == finishCoordinate.X && x.Y == finishCoordinate.Y).Count() != 0)
                 {
                     Nodes[finishCoordinate.Y * _width + finishCoordinate.X].NodeFromStart = pointToVisit.First();
@@ -157,7 +159,7 @@ namespace PathFindAlgorithmDemo.NodePathFinderComponents
 
             while (true)
             {
-                var n = pointToVisit.First().Neighbors.Where(x => x.EpochValue == 0).ToList();
+                var n = pointToVisit.First().Neighbors.Where(x => x.EpochValue == MazeDesignationsConsts.notVisited).ToList();
                 if (n.Where(x => x.X == finishCoordinate.X && x.Y == finishCoordinate.Y).Count() != 0)
                 {
                     Nodes[finishCoordinate.Y * _width + finishCoordinate.X].NodeFromStart = pointToVisit.First();

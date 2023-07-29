@@ -1,8 +1,9 @@
-﻿using PathFindAlgorithmDemo.NodePathFinderComponents;
+﻿using PathFindAlgorithmDemo.Consts;
+using PathFindAlgorithmDemo.NodePathFinderComponents;
 using System.Drawing;
 using Point = PathFindAlgorithmDemo.HelpFullStructures.Point;
 
-namespace PathFindAlgorithmDemo
+namespace PathFindAlgorithmDemo.HelpFullTools
 {
     public static class Display
     {
@@ -49,7 +50,7 @@ namespace PathFindAlgorithmDemo
             {
                 for (int k = 0; k < image.Width; k++)
                 {
-                    if (image.GetPixel(k, i).GetBrightness() < 0.3)
+                    if (image.GetPixel(k, i).GetBrightness() < DisplayConst.WallMaxBrightness)
                     {
                         walls.Add(new Point(k, i));
                     }
@@ -67,22 +68,22 @@ namespace PathFindAlgorithmDemo
             {
                 for (int k = 0; k < image.Width; k++)
                 {
-                    if (map[i, k] == 0)
+                    if (map[i, k] == MazeDesignationsConsts.notVisited)
                     {
                         image.SetPixel(k, i, Color.White);
                     }
 
-                    if (map[i, k] != 0)
+                    if (map[i, k] != MazeDesignationsConsts.notVisited)
                     {
                         image.SetPixel(k, i, Color.Blue);
                     }
 
-                    if (weightMap[i, k] != 0 && map[i, k] == 0)
+                    if (weightMap[i, k] != MazeDesignationsConsts.notVisited && map[i, k] == MazeDesignationsConsts.notVisited)
                     {
                         image.SetPixel(k, i, Color.Yellow);
                     }
 
-                    if (weightMap[i, k] == -1)
+                    if (weightMap[i, k] == MazeDesignationsConsts.wall)
                     {
                         image.SetPixel(k, i, Color.Black);
                     }
@@ -104,12 +105,12 @@ namespace PathFindAlgorithmDemo
                 for (int k = 0; k < image.Width; k++)
                 {
                     var coordinate = i * width + k;
-                    if (nodes[coordinate].EpochValue == 0)
+                    if (nodes[coordinate].EpochValue == MazeDesignationsConsts.notVisited)
                     {
                         image.SetPixel(k, i, Color.White);
                     }
 
-                    if (nodes[coordinate].EpochValue != 0)
+                    if (nodes[coordinate].EpochValue != MazeDesignationsConsts.notVisited)
                     {
                         image.SetPixel(k, i, Color.Yellow);
                     }

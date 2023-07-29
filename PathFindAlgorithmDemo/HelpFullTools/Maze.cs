@@ -2,7 +2,7 @@
 using System.Text.Json;
 using PathFindAlgorithmDemo.HelpFullStructures;
 
-namespace PathFindAlgorithmDemo
+namespace PathFindAlgorithmDemo.HelpFullTools
 {
     public class Maze
     {
@@ -15,11 +15,11 @@ namespace PathFindAlgorithmDemo
 
         public Maze(int height, int width, Point startPoint, Point finishPoint, Point[] walls)
         {
-            this.Height = height;
-            this.Width = width;
+            Height = height;
+            Width = width;
             StartPoint = startPoint;
             FinishPoint = finishPoint;
-            this.Walls = walls;
+            Walls = walls;
         }
 
         public Maze()
@@ -43,7 +43,7 @@ namespace PathFindAlgorithmDemo
 
         public string SaveMazeJSON(string path)
         {
-            var jsonString = JsonSerializer.Serialize<Maze>(this);
+            var jsonString = JsonSerializer.Serialize(this);
             using (FileStream fstream = new FileStream(path, FileMode.OpenOrCreate))
             {
                 byte[] buffer = Encoding.Default.GetBytes(jsonString);

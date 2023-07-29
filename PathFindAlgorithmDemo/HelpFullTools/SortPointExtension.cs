@@ -1,7 +1,7 @@
 ﻿using PathFindAlgorithmDemo.HelpFullStructures;
 using PathFindAlgorithmDemo.NodePathFinderComponents;
 
-namespace PathFindAlgorithmDemo
+namespace PathFindAlgorithmDemo.HelpFullTools
 {
     public static class SortExtension
     {
