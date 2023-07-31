@@ -101,7 +101,7 @@ namespace PathFindAlgorithmDemo.NodePathFinderComponents
                     if (n.Where(x => x.X == finishCoordinate.X && x.Y == finishCoordinate.Y).Count() != 0)
                     {
                         Nodes[finishCoordinate.Y * _width + finishCoordinate.X].NodeFromStart = item;
-                        return GetSolveNodeGraph(finishCoordinate, Nodes, _width);
+                        return _getSolveNodeGraph(finishCoordinate, Nodes, _width);
                     }
                     n.ToList().ForEach(x =>
                     {
@@ -132,7 +132,7 @@ namespace PathFindAlgorithmDemo.NodePathFinderComponents
                 if (n.Where(x => x.X == finishCoordinate.X && x.Y == finishCoordinate.Y).Count() != 0)
                 {
                     Nodes[finishCoordinate.Y * _width + finishCoordinate.X].NodeFromStart = pointToVisit.First();
-                    return GetSolveNodeGraph(finishCoordinate, Nodes, _width);
+                    return _getSolveNodeGraph(finishCoordinate, Nodes, _width);
                 }
                 n.ForEach(x =>
                 {
@@ -163,7 +163,7 @@ namespace PathFindAlgorithmDemo.NodePathFinderComponents
                 if (n.Where(x => x.X == finishCoordinate.X && x.Y == finishCoordinate.Y).Count() != 0)
                 {
                     Nodes[finishCoordinate.Y * _width + finishCoordinate.X].NodeFromStart = pointToVisit.First();
-                    return GetSolveNodeGraph(finishCoordinate, Nodes, _width);
+                    return _getSolveNodeGraph(finishCoordinate, Nodes, _width);
                 }
                 n.ForEach(x =>
                 {
@@ -178,7 +178,7 @@ namespace PathFindAlgorithmDemo.NodePathFinderComponents
             }
         }
 
-        private Node[] GetSolveNodeGraph(Point finishCoordinate, Node[] nodes, int width)
+        private Node[] _getSolveNodeGraph(Point finishCoordinate, Node[] nodes, int width)
         {
             var soleveNodeWay = new List<Node>();
             var finishNode = nodes[finishCoordinate.Y * width + finishCoordinate.X];
