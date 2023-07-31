@@ -1,8 +1,9 @@
 ﻿using PathFindAlgorithmDemo.HelpFullTools;
+using PathFindAlgorithmDemo.HelpFullTools.SideCheckers;
 using PathFindAlgorithmDemo.NodePathFinderComponents;
 using System.Diagnostics;
 
-namespace PathFindAlgorithmDemo.TestPathFinders
+namespace PathFindAlgorithmDemo.TestExecuted
 {
     public class TestMatrixPathFinderExecuted
     {
@@ -74,15 +75,15 @@ namespace PathFindAlgorithmDemo.TestPathFinders
         public static void testMatrixDepthFirstPathFinderQueueNeighbor(string mazePath, string? savePath = null)
         {
             string saveFolder = "testMatrixDepthFirstPathFinderQueueNeighbor";
-            SideChecker.Sides[] sides = new SideChecker.Sides[]
+            Sides[] sides = new Sides[]
             {
-                SideChecker.Sides.bottom,
-                SideChecker.Sides.up,
-                SideChecker.Sides.right,
-                SideChecker.Sides.left,
+                Sides.bottom,
+                Sides.up,
+                Sides.right,
+                Sides.left,
             };
 
-            var sideCombinations = PermutationCombinations<SideChecker.Sides>.GenerateCombinations(sides.ToList(), 0, sides.Length - 1);
+            var sideCombinations = PermutationCombinations<Sides>.GenerateCombinations(sides.ToList(), 0, sides.Length - 1);
             Stopwatch sw = Stopwatch.StartNew();
             sw.Stop();
             var maze = Maze.LoadMazeJSON(mazePath);
@@ -91,14 +92,14 @@ namespace PathFindAlgorithmDemo.TestPathFinders
 
             Directory.CreateDirectory(saveFolder);
 
-            SideChecker.SideCheckerDelegate[] delegateCombinations = new SideChecker.SideCheckerDelegate[sideCombinations.Count];
+            SideCheckerForPathFinder.SideCheckerDelegateForPathFinder[] delegateCombinations = new SideCheckerForPathFinder.SideCheckerDelegateForPathFinder[sideCombinations.Count];
 
             for (int i = 0; i < sideCombinations.Count; i++)
             {
-                delegateCombinations[i] = SideChecker.dictionary[sideCombinations[i][0]];
-                delegateCombinations[i] += SideChecker.dictionary[sideCombinations[i][1]];
-                delegateCombinations[i] += SideChecker.dictionary[sideCombinations[i][2]];
-                delegateCombinations[i] += SideChecker.dictionary[sideCombinations[i][3]];
+                delegateCombinations[i] = SideCheckerForPathFinder.sideCheckerDelegateDictionaryForPathFinder[sideCombinations[i][0]];
+                delegateCombinations[i] += SideCheckerForPathFinder.sideCheckerDelegateDictionaryForPathFinder[sideCombinations[i][1]];
+                delegateCombinations[i] += SideCheckerForPathFinder.sideCheckerDelegateDictionaryForPathFinder[sideCombinations[i][2]];
+                delegateCombinations[i] += SideCheckerForPathFinder.sideCheckerDelegateDictionaryForPathFinder[sideCombinations[i][3]];
             }
 
             for (int i = 0; i < delegateCombinations.Length; i++)

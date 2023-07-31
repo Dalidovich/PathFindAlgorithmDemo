@@ -1,7 +1,7 @@
 ﻿using PathFindAlgorithmDemo.Consts;
 using PathFindAlgorithmDemo.HelpFullStructures;
 using PathFindAlgorithmDemo.HelpFullTools;
-using System.Drawing.Drawing2D;
+using PathFindAlgorithmDemo.HelpFullTools.SideCheckers;
 
 namespace PathFindAlgorithmDemo
 {
@@ -62,7 +62,7 @@ namespace PathFindAlgorithmDemo
             }
         }
 
-        public Point[] DepthFirstSearch(Point startCoordinate, Point finishCoordinate, SideChecker.SideCheckerDelegate? sideCheckerQueue = null)
+        public Point[] DepthFirstSearch(Point startCoordinate, Point finishCoordinate, SideCheckerForPathFinder.SideCheckerDelegateForPathFinder? sideCheckerQueue = null)
         {
             WeightMap[startCoordinate.Y, startCoordinate.X] = MazeDesignationsConsts.start;
             var pointToVisit = _getNeighborsPoints(startCoordinate, MazeDesignationsConsts.notVisited, WeightMap, sideCheckerQueue).ToList();
@@ -139,7 +139,7 @@ namespace PathFindAlgorithmDemo
             return wayMap.ToArray();
         }
 
-        private IEnumerable<Point> _getNeighborsPoints(Point selected, int fitValue, int[,] matrix, SideChecker.SideCheckerDelegate? sideCheckerQueue = null)
+        private IEnumerable<Point> _getNeighborsPoints(Point selected, int fitValue, int[,] matrix, SideCheckerForPathFinder.SideCheckerDelegateForPathFinder? sideCheckerQueue = null)
         {
             var neighbors = new List<Point>();
 
@@ -149,7 +149,7 @@ namespace PathFindAlgorithmDemo
             }
             else
             {
-                SideChecker.defaultSideCheckerDelegate(selected, _width, _height, neighbors, fitValue, matrix);
+                SideCheckerForPathFinder.defaultSideCheckerDelegateForPathFinder(selected, _width, _height, neighbors, fitValue, matrix);
             }
 
             return neighbors;

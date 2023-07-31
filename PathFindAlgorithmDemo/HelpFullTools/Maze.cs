@@ -38,7 +38,7 @@ namespace PathFindAlgorithmDemo.HelpFullTools
 
             Maze? maze = JsonSerializer.Deserialize<Maze>(jsonString);
 
-            return maze;
+            return maze ?? new Maze();
         }
 
         public string SaveMazeJSON(string path)

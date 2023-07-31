@@ -140,7 +140,7 @@ namespace PathFindAlgorithmDemo.HelpFullTools
 
         public static void StartInSFML(Point[] solveWay, int[,] map)
         {
-            RenderWindow window = new RenderWindow(new VideoMode((uint)map.GetLength(1), (uint)map.GetLength(0)), "matrix path finder");
+            RenderWindow window = new RenderWindow(new VideoMode((uint)map.GetLength(1), (uint)map.GetLength(0)), "sfml");
             window.SetVerticalSyncEnabled(true);
 
             List<Vertex> walls = new List<Vertex>();
